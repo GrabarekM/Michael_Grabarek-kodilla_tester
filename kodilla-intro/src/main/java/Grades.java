@@ -12,7 +12,7 @@ public class Grades {
         ocena.add(4);
 
         System.out.println("Ostatnia ocena to " + ocena.getLast());
-        System.out.println("średnia ocen to " + ocena.getSrednia());
+        System.out.println("średnia ocen to " + ocena.getAverage());
     }
 
     public Grades() {
@@ -36,15 +36,15 @@ public class Grades {
         }
     }
 
-    public double getSrednia() {
+    public double getAverage() {
         if (this.size == 0) {
             return 0;
         } else {
-            double srednia = 0;
+            double average = 0;
             for (int i = 0; i < this.size; i++) {
-                srednia = srednia + this.grades[i];
+                average = average + this.grades[i];
             }
-           double wyliczone = srednia / this.size;
+           double wyliczone = average / this.size;
             return wyliczone;
         }
     }
