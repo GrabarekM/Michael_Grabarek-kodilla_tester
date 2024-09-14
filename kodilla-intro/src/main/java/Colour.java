@@ -11,6 +11,7 @@ public class Colour {
             }
             System.out.println("Try again. Name is too short");
         }
+
     }
 
     public static String getContinue() {
