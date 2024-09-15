@@ -1,14 +1,14 @@
-public class Application {
+public class Dude {
     double age;
     double height;
     String name;
 
-    public Application(double age, double height, String name) {
+    public Dude(double age, double height, String name) {
         this.age = age;
         this.height = height;
         this.name = name;
     }
-    public void konstruktor() {
+    public void checkDude() {
         if (this.name != null) {
             if (this.age > 30 && this.height > 160) {
                 System.out.println("User is old");
@@ -21,8 +21,8 @@ public class Application {
 
 public static void main(String[] args) {
 
-    Application guy = new Application(30.5, 178, "Adam");
-    guy.konstruktor();
+    Dude guy = new Dude(30.5, 178, "Adam");
+    guy.checkDude();
 }
 
 
