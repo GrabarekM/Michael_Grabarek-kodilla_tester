@@ -2,6 +2,8 @@ package com.kodilla.basic_assertion;
 
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CalculatorTestSuite {
@@ -24,10 +26,10 @@ public class CalculatorTestSuite {
     @Test
     public void testSquare() {
         Calculator calculator = new Calculator();
-        double a = 4;
-        double b = 2;
+        double a = 4.2;
+        double b = 2.6;
         double squareResult = calculator.square(a, b);
-        assertEquals(16, squareResult);
+        assertEquals(41.72, squareResult, 0.01);
     }
 
 }
