@@ -37,4 +37,3 @@ import static org.junit.jupiter.api.Assertions.*;
             assertEquals(expected, validator.validateEmail(email));
         }
     }
-}
