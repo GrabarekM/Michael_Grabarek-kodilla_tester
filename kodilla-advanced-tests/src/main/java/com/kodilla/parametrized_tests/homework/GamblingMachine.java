@@ -7,6 +7,12 @@ import java.util.Set;
 
 class GamblingMachine {
 
+    private Random generator;
+
+    public GamblingMachine(Random generator) {
+        this.generator = generator;
+    }
+
     public int howManyWins(Set<Integer> userNumbers) throws InvalidNumbersException {
         validateNumbers(userNumbers);
         Set<Integer> computerNumbers = generateComputerNumbers();
@@ -27,7 +33,7 @@ class GamblingMachine {
 
     private boolean isAnyNumberOutOfDeclaredScope(Set<Integer> numbers) {
         return numbers.stream()
-                .anyMatch(number -> number < 1 || number > 49);
+                .anyMatch(number -> number < 1 || number > 50);
     }
 
     private boolean isNotCorrectSize(Set<Integer> numbers) {
@@ -36,7 +42,6 @@ class GamblingMachine {
 
     private Set<Integer> generateComputerNumbers() {
         Set<Integer> numbers = new HashSet<>();
-        Random generator = new Random();
         while(numbers.size() < 6) {
             numbers.add(generator.nextInt(49) + 1);
         }

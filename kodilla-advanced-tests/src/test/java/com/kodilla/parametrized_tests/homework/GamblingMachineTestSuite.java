@@ -1,14 +1,29 @@
 package com.kodilla.parametrized_tests.homework;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GamblingMachineTestSuite {
 
-    private final GamblingMachine gamblingMachine = new GamblingMachine();
+    private GamblingMachine gamblingMachine;
+class TestRandom extends Random {
+    private int[] values = {3, 11, 10, 4, 5, 20};
+    int i = 0;
+    @Override
+    public int nextInt(int bound) {
+        return values[i++];
+    }
+}
+//  Before each wywoluje wszystkie przed
+    @BeforeEach
+    void setUp() {
+        gamblingMachine = new GamblingMachine(new TestRandom());
+    }
 
     @ParameterizedTest
     @CsvFileSource(resources = "/number.csv", numLinesToSkip = 1)
@@ -23,6 +38,7 @@ class GamblingMachineTestSuite {
         int result = gamblingMachine.howManyWins(userNumbers);
         assertEquals(expectedWins, result);
     }
+
 
     @ParameterizedTest
     @CsvFileSource(resources = "/invalid_numbers.csv", numLinesToSkip = 1)
