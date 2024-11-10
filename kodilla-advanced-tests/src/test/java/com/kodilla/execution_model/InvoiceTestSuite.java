@@ -1,74 +1,83 @@
 package com.kodilla.execution_model;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-class InvoiceTestSuite {
+public class InvoiceTestSuite {
 
-    private Invoice invoice;
+    Invoice invoice = new Invoice();
+    Item milk = new Item("Milk", 3.50);
+    Item eggs = new Item("Eggs", 8.00);
+    Item bread = new Item("Bread", 4.15);
 
-    @BeforeEach
-    void setUp() {
-        invoice = new Invoice();
+    @Test
+    public void shouldAddItemsToInvoice() {
+        //When
+        int numberOfItems = invoice.getSize();
+
+        //Then
+        assertEquals(3, numberOfItems);
     }
 
     @Test
-    void shouldIncreaseSizeWhenAddingNewItems() {
-        // given
-        Item item1 = new Item("Laptop", 1200.00);
-        Item item2 = new Item("Mouse", 25.50);
-        // when
-        invoice.addItem(item1);
-        invoice.addItem(item2);
-        // then
-        assertEquals(2, invoice.getSize());
+    public void shouldGetExistingItem() {
+        //When
+        Item result = invoice.getItem(2);
+
+        //Then
+        assertEquals("Bread", result.getName());
+        assertEquals(4.15, result.getPrice(), 0.01);
     }
 
     @Test
-    void shouldReturnCorrectItemDetails() {
-        // given
-        Item item = new Item("Keyboard", 45.75);
-        invoice.addItem(item);
-        // when
-        Item result = invoice.getItem(0);
-        // then
-        assertNotNull(result);
-        assertEquals("Keyboard", result.getName());
-        assertEquals(45.75, result.getPrice());
-    }
+    public void shouldReturnNullWhenPassingNegativeIndex() {
+        //When
+        Item result = invoice.getItem(-3);
 
-    @Test
-    void shouldReturnNullWhenIndexIsNegative() {
-        // given
-        Item item = new Item("Monitor", 299.99);
-        invoice.addItem(item);
-        // when
-        Item result = invoice.getItem(-1);
-        // then
+        //Then
         assertNull(result);
     }
 
     @Test
-    void shouldReturnNullWhenIndexIsOutOfListSize() {
-        // given
-        Item item = new Item("Printer", 89.99);
-        invoice.addItem(item);
-        // when
-        Item result = invoice.getItem(5);
-        // then
+    public void shouldReturnNullWhenPassingOutOfRangeIndex() {
+        //When
+        Item result = invoice.getItem(7);
+
+        //Then
         assertNull(result);
     }
 
     @Test
-    void shouldClearAllItems() {
-        // given
-        invoice.addItem(new Item("Desk", 250.00));
-        invoice.addItem(new Item("Chair", 75.00));
-        // when
+    public void shouldClearInvoice() {
+        //When
         invoice.clear();
-        // then
+
+        //Then
         assertEquals(0, invoice.getSize());
     }
+
+    @BeforeEach
+    public void initializeInvoice() {
+        invoice.addItem(milk);
+        invoice.addItem(eggs);
+        invoice.addItem(bread);
+    }
+
+    @AfterEach
+    public void resetValues() {
+        System.out.println("Resetting values...");
+    }
+
+    @BeforeAll
+    public static void displayIntroMessage() {
+        System.out.println("Starting testing");
+    }
+
+    @AfterAll
+    public static void displayGoodByeMessage() {
+        System.out.println("Finishing testing");
+    }
+
 }
