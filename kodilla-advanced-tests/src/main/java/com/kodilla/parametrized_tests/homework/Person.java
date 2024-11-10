@@ -36,4 +36,3 @@ public class Person {
         return "Obese Class VI (Hyper Obese)";
     }
 }
-
