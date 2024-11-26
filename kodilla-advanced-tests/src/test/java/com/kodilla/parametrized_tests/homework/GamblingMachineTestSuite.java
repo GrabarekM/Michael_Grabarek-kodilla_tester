@@ -52,7 +52,5 @@ class TestRandom extends Random {
         userNumbers.add(num6);
         assertThrows(InvalidNumbersException.class, () -> gamblingMachine.howManyWins(userNumbers));
 
-
-        // Pytanie - Czemu zawsze actual nie jest expected.
     }
 }
