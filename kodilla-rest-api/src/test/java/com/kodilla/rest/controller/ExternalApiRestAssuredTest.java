@@ -22,5 +22,30 @@ class ExternalApiRestAssuredTest {
                 body("body", equalTo("quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto")).
                 log().all();  // [5]
     }
+    @Test
+    void testUpdatePostShouldReturnStatus200AndValidateResponse() {
+        String updatedPost = """
+      {
+         "id": 1,
+         "title": "updated title",
+         "body": "updated body",
+         "userId": 1
+      }
+      """;
+
+        given().
+                header("Content-Type", "application/json").
+                body(updatedPost).
+                when().
+                put("https://jsonplaceholder.typicode.com/posts/1").
+                then().
+                assertThat().
+                statusCode(200).
+                body("id", equalTo(1)).
+                body("title", equalTo("updated title")).
+                body("body", equalTo("updated body")).
+                body("userId", equalTo(1)).
+                log().all();
+    }
 
 }

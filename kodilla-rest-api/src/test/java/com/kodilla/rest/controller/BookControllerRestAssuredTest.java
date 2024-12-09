@@ -2,6 +2,8 @@ package com.kodilla.rest.controller;
 
 import com.kodilla.rest.domain.BookDto;
 import com.kodilla.rest.service.BookService;
+import io.restassured.http.ContentType;
+import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,6 +14,10 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import java.util.List;
+
+import static io.restassured.RestAssured.given;
+import static io.restassured.module.mockmvc.RestAssuredMockMvc.when;
+import static org.hamcrest.Matchers.equalTo;
 
 @ExtendWith(MockitoExtension.class)
 class BookControllerRestAssuredTest {
@@ -37,13 +43,31 @@ class BookControllerRestAssuredTest {
         when()
                 .get("/books")  // [3]
                 .then()
-                .body("$.size()", Matchers.equalTo(2))  // [4]
-                .body("[0].title", Matchers.equalTo("Title 1"))    // [5]
-                .body("[0].author", Matchers.equalTo("Author 2"))
-                .body("[1].title", Matchers.equalTo("Title 2"))
-                .body("[1].author", Matchers.equalTo("Author 2"))
+                .body("$.size()", equalTo(2))  // [4]
+                .body("[0].title", equalTo("Title 1"))    // [5]
+                .body("[0].author", equalTo("Author 2"))
+                .body("[1].title", equalTo("Title 2"))
+                .body("[1].author", equalTo("Author 2"))
                 .status(HttpStatus.OK);
     }
+    @Test
+    void shouldAddBook() {
+        // given
+        BookDto newBook = new BookDto("New Title", "New Author");
 
+        // when
+        given().
+                contentType(ContentType.JSON).
+                body(newBook).
+                when().
+                post("/books").
+                then().
+                assertThat().
+                statusCode(HttpStatus.OK).
+                body("message", equalTo("Book added successfully"));
+
+        // then
+        Mockito.verify(bookService).addBook(Mockito.refEq(newBook));
+    }
 
 }
