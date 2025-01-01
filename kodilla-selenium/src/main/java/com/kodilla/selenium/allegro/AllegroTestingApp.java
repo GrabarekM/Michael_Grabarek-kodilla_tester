@@ -17,7 +17,7 @@ public class AllegroTestingApp {
         WebDriver driver = new ChromeDriver(chromeOptions);
         driver.get("https://www.ebay.com/");
 
-        WebElement categoryDropdown = driver.findElement(By.xpath("//*[@id=\"gh-cat\"]"));
+        WebElement categoryDropdown = driver.findElement(By.cssSelector("#gh-cat"));
         Select selectCategory = new Select(categoryDropdown);
         selectCategory.selectByVisibleText("Video Games & Consoles");
 
