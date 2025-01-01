@@ -35,6 +35,5 @@ public class AllegroTestingApp {
         for (WebElement productCard : productCards) {
             System.out.println(productCard.getText());
         }
-
     }
 }
