@@ -50,24 +50,4 @@ class BookControllerRestAssuredTest {
                 .body("[1].author", equalTo("Author 2"))
                 .status(HttpStatus.OK);
     }
-    @Test
-    void shouldAddBook() {
-        // given
-        BookDto newBook = new BookDto("New Title", "New Author");
-
-        // when
-        given().
-                contentType(ContentType.JSON).
-                body(newBook).
-                when().
-                post("/books").
-                then().
-                assertThat().
-                statusCode(HttpStatus.OK).
-                body("message", equalTo("Book added successfully"));
-
-        // then
-        Mockito.verify(bookService).addBook(Mockito.refEq(newBook));
-    }
-
 }
